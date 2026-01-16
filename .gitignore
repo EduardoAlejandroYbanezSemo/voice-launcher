@@ -1,0 +1,57 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+build
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Python
+src-python/venv/
+src-python/__pycache__/
+src-python/temp_audio/
+src-python/dist/
+src-python/build/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Rust/Tauri
+src-tauri/target/
+src-tauri/Cargo.lock
+
+# Vosk Model (demasiado grande para git - descargar con script)
+src-python/model/
+
+# Temporal
+src-tauri/temp_chunk.wav
+*.tmp
+*.temp
+
+# Build outputs
+*.deb
+*.rpm
+*.AppImage
+*.dmg
+*.exe
+*.msi
+

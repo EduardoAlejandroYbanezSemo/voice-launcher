@@ -1,0 +1,28 @@
+{
+  "actions": [
+    {
+      "name": "launch",
+      "keywords": ["abrir", "jugar", "ejecutar", "pon", "lanza"],
+      "response": "Abriendo {target}...",
+      "emit": "game-launch"
+    },
+    {
+      "name": "list",
+      "keywords": ["lista", "ver juegos", "qué tengo", "catálogo", "qué hay"],
+      "response": "Aquí tienes tus juegos.",
+      "emit": "show-library"
+    },
+    {
+      "name": "shutdown",
+      "keywords": ["apagar", "salir", "cerrar", "adiós", "desconectar"],
+      "response": "Apagando el sistema. ¡Hasta pronto!",
+      "emit": "system-shutdown"
+    },
+    {
+      "name": "time",
+      "keywords": ["qué hora es", "hora", "dime la hora", "hora actual"],
+      "response": "{time}",
+      "emit": "time-info"
+    }
+  ]
+}

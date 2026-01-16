@@ -1,0 +1,207 @@
+:root {
+  --bg-dark: #121212;
+  --bg-sidebar: #1a1a1a;
+  --text-main: #ffffff;
+  --text-muted: #888888;
+  --accent-active: #ff4d4d;
+  --accent-ready: #4CAF50;
+  --border-color: #333333;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 320px;
+  background-color: var(--bg-sidebar);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+
+.mic-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.mic-wrapper {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #252525;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.mic-wrapper.listening {
+  background: rgba(255, 77, 77, 0.1);
+  transform: scale(1.05);
+  border: 2px solid var(--accent-active);
+}
+
+.status-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-top: 1rem;
+}
+
+.history-section {
+  flex: 1;
+  overflow-y: auto;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+}
+
+.history-title {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  letter-spacing: 1px;
+}
+
+.log-item {
+  font-size: 0.9rem;
+  color: #ccc;
+  padding: 10px 0;
+  border-bottom: 1px solid #2a2a2a;
+  animation: fadeIn 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Espacio entre icono y texto */
+}
+
+.log-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+}
+
+.log-item:first-child {
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+/* STAGE */
+.stage {
+  flex: 1;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centrar verticalmente */
+  align-items: center;
+  position: relative;
+  overflow-y: auto; /* Permitir scroll si hay muchos juegos */
+}
+
+/* WELCOME */
+.welcome-container {
+  text-align: center;
+  max-width: 600px;
+}
+
+.hint-title {
+  font-size: 3rem;
+  font-weight: 200;
+  margin-bottom: 1rem;
+  color: var(--text-main);
+}
+
+.hint-text {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  font-style: italic;
+  min-height: 3rem;
+  animation: fadeText 1s ease;
+}
+
+/* LIBRARY GRID */
+.library-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  padding-bottom: 2rem;
+}
+
+.game-card {
+  background-color: #252525;
+  border-radius: 12px;
+  aspect-ratio: 3/4;
+  position: relative; /* Para posicionar el overlay */
+  overflow: hidden;   /* Cortar imagen que sobresalga */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  border: 1px solid transparent;
+}
+
+.game-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(255,255,255,0.2);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.5);
+  z-index: 10;
+}
+
+/* Capa oscura sobre la imagen para que el texto se lea */
+.game-info-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+  padding: 20px 10px 10px 10px;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.game-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeText {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

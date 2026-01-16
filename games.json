@@ -1,0 +1,23 @@
+[
+  {
+    "id": "pokemon",
+    "name": "Pokémon Moon",
+    "keywords": ["pokemon", "luna", "moon", "pikachu", "poke"],
+    "cmd": "C:/Emulators/Citra/citra-qt.exe \"D:/Games/3DS/Pokemon Moon.3ds\"",
+    "image": "/pokemon_moon.jpg"
+  },
+  {
+    "id": "mario",
+    "name": "Super Mario Odyssey",
+    "keywords": ["mario", "odyssey", "fontanero", "sombrero"],
+    "cmd": "C:/Games/Mario/mario.exe",
+    "image": ""
+  },
+  {
+    "id": "zelda",
+    "name": "Zelda: BOTW",
+    "keywords": ["zelda", "link", "breath", "wild", "espada"],
+    "cmd": "C:/Games/Zelda/zelda.exe",
+    "image": ""
+  }
+]
