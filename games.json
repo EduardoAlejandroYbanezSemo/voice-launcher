@@ -7,31 +7,10 @@
     "image": ""
   },
   {
-    "id": "edge",
-    "name": "Microsoft Edge",
-    "keywords": ["edge", "navegador", "microsoft"],
-    "cmd": "msedge.exe",
-    "image": ""
-  },
-  {
     "id": "terminal",
     "name": "Terminal",
     "keywords": ["terminal", "consola", "cmd", "powershell"],
     "cmd": "wt.exe",
-    "image": ""
-  },
-  {
-    "id": "notepad",
-    "name": "Bloc de Notas",
-    "keywords": ["bloc", "notas", "notepad", "editor"],
-    "cmd": "notepad.exe",
-    "image": ""
-  },
-  {
-    "id": "vscode",
-    "name": "Visual Studio Code",
-    "keywords": ["vscode", "code", "visual", "editor", "programar"],
-    "cmd": "code.exe",
     "image": ""
   },
   {
@@ -49,24 +28,17 @@
     "image": ""
   },
   {
-    "id": "spotify",
-    "name": "Spotify",
-    "keywords": ["spotify", "música", "music"],
-    "cmd": "C:\\Users\\%USERNAME%\\AppData\\Roaming\\Spotify\\Spotify.exe",
-    "image": ""
-  },
-  {
-    "id": "discord",
-    "name": "Discord",
-    "keywords": ["discord", "chat"],
-    "cmd": "C:\\Users\\%USERNAME%\\AppData\\Local\\Discord\\app-1.0.9162\\Discord.exe",
+    "id": "notepad",
+    "name": "Bloc de Notas",
+    "keywords": ["bloc", "notas", "notepad", "editor"],
+    "cmd": "notepad.exe",
     "image": ""
   },
   {
     "id": "pokemon",
-    "name": "Pokémon Moon",
-    "keywords": ["pokemon", "luna", "moon", "pikachu", "poke", "juego"],
-    "cmd": "C:\\Emulators\\Citra\\citra-qt.exe \"D:\\Games\\3DS\\Pokemon Moon.3ds\"",
-    "image": "/pokemon_moon.jpg"
+    "name": "Pokemon Rojo",
+    "keywords": ["pokemon", "rojo", "red", "pikachu", "gameboy", "juego"],
+    "cmd": "C:\\RetroArch-Win64\\retroarch.exe \"C:\\Users\\IT\\Downloads\\Pokemon - Red Version (USA, Europe) (SGB Enhanced).gb\"",
+    "image": ""
   }
 ]
