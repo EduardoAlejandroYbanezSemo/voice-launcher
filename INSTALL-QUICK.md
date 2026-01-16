@@ -76,8 +76,13 @@ Edita los archivos JSON para personalizar:
 ```
 
 **Ubicación de archivos:**
-- Configuración: `/usr/bin/commands.json` y `/usr/bin/games.json`
+- Configuración: `~/.config/voice-launcher/commands.json` y `~/.config/voice-launcher/games.json`
 - Imágenes: `~/.local/share/voice-launcher/images/`
+
+**Para editar tu biblioteca:**
+```bash
+nano ~/.config/voice-launcher/games.json
+```
 
 ---
 

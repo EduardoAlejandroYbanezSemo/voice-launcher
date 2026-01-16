@@ -43,19 +43,23 @@ echo -e "${GREEN}✓${NC} Paquete instalado"
 echo ""
 echo -e "${BLUE}[2/3]${NC} Configurando archivos JSON..."
 
-# Directorio de instalación (donde está el ejecutable)
-INSTALL_DIR="/usr/bin"
+# Crear directorios de configuración
+CONFIG_DIR_SYSTEM="/etc/voice-launcher"
+CONFIG_DIR_USER="$HOME/.config/voice-launcher"
+
+# Usar configuración de usuario (más fácil de editar)
+mkdir -p "$CONFIG_DIR_USER"
 
 # Copiar commands.json
 if [ -f "commands.json" ]; then
-    sudo cp commands.json "$INSTALL_DIR/commands.json"
-    echo -e "${GREEN}✓${NC} commands.json copiado"
+    cp commands.json "$CONFIG_DIR_USER/commands.json"
+    echo -e "${GREEN}✓${NC} commands.json copiado a $CONFIG_DIR_USER"
 fi
 
 # Copiar games.json
 if [ -f "games.json" ]; then
-    sudo cp games.json "$INSTALL_DIR/games.json"
-    echo -e "${GREEN}✓${NC} games.json copiado"
+    cp games.json "$CONFIG_DIR_USER/games.json"
+    echo -e "${GREEN}✓${NC} games.json copiado a $CONFIG_DIR_USER"
 fi
 
 # Crear directorio para imágenes de juegos
@@ -93,10 +97,13 @@ echo -e "${GREEN}╔════════════════════
 echo -e "${GREEN}║  ✓ INSTALACIÓN COMPLETADA                                 ║${NC}"
 echo -e "${GREEN}╚════════════════════════════════════════════════════════════╝${NC}"
 echo ""
-echo -e "${YELLOW}📝 Configuración:${NC}"
-echo -e "   • Comandos: ${BLUE}$INSTALL_DIR/commands.json${NC}"
-echo -e "   • Juegos:   ${BLUE}$INSTALL_DIR/games.json${NC}"
+echo -e "${YELLOW}📝 Archivos de configuración:${NC}"
+echo -e "   • Comandos: ${BLUE}$CONFIG_DIR_USER/commands.json${NC}"
+echo -e "   • Juegos:   ${BLUE}$CONFIG_DIR_USER/games.json${NC}"
 echo -e "   • Imágenes: ${BLUE}$IMAGES_DIR${NC}"
+echo ""
+echo -e "${YELLOW}✏️  Para editar tu biblioteca de juegos:${NC}"
+echo -e "   ${GREEN}nano $CONFIG_DIR_USER/games.json${NC}"
 echo ""
 echo -e "${YELLOW}🎮 Para ejecutar:${NC}"
 echo -e "   ${GREEN}voice-launcher${NC}"

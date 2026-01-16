@@ -174,22 +174,48 @@ fn main() {
 }
 
 fn load_commands() -> CommandsConfig {
-    let paths = vec!["commands.json", "../commands.json"];
+    // Buscar en múltiples ubicaciones
+    let paths = vec![
+        "commands.json",                                    // Directorio actual (dev)
+        "../commands.json",                                 // Directorio padre (dev)
+        "/etc/voice-launcher/commands.json",                // Sistema (producción)
+        &format!("{}/.config/voice-launcher/commands.json", 
+                 std::env::var("HOME").unwrap_or_default()), // Usuario (producción)
+    ];
+    
     for path in paths {
         if let Ok(content) = fs::read_to_string(path) {
-            if let Ok(config) = serde_json::from_str::<CommandsConfig>(&content) { return config; }
+            if let Ok(config) = serde_json::from_str::<CommandsConfig>(&content) { 
+                println!("✓ Cargado commands.json desde: {}", path);
+                return config; 
+            }
         }
     }
+    
+    println!("⚠ No se encontró commands.json, usando configuración vacía");
     CommandsConfig { actions: vec![] }
 }
 
 fn load_games() -> Vec<Game> {
-    let paths = vec!["games.json", "../games.json"];
+    // Buscar en múltiples ubicaciones
+    let paths = vec![
+        "games.json",                                    // Directorio actual (dev)
+        "../games.json",                                 // Directorio padre (dev)
+        "/etc/voice-launcher/games.json",                // Sistema (producción)
+        &format!("{}/.config/voice-launcher/games.json", 
+                 std::env::var("HOME").unwrap_or_default()), // Usuario (producción)
+    ];
+    
     for path in paths {
         if let Ok(content) = fs::read_to_string(path) {
-            if let Ok(games) = serde_json::from_str::<Vec<Game>>(&content) { return games; }
+            if let Ok(games) = serde_json::from_str::<Vec<Game>>(&content) { 
+                println!("✓ Cargado games.json desde: {}", path);
+                return games; 
+            }
         }
     }
+    
+    println!("⚠ No se encontró games.json, usando lista vacía");
     vec![]
 }
 
