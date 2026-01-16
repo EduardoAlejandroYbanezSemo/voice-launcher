@@ -1,73 +1,228 @@
-# React + TypeScript + Vite
+# 🎮 Voice Launcher
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Lanzador de juegos controlado por voz para Raspberry Pi** con reconocimiento de voz offline.
 
-Currently, two official plugins are available:
+[![Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-A22846?style=for-the-badge&logo=raspberry-pi&logoColor=white)](https://www.raspberrypi.org/)
+[![Tauri](https://img.shields.io/badge/Tauri-FFC131?style=for-the-badge&logo=tauri&logoColor=black)](https://tauri.app/)
+[![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)](https://www.rust-lang.org/)
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Características
 
-## React Compiler
+- 🎙️ **Reconocimiento de voz offline** usando [Vosk](https://alphacephei.com/vosk/)
+- 🚀 **Interfaz rápida y ligera** con Tauri (React + Rust)
+- 🎮 **Biblioteca de juegos personalizable** mediante JSON
+- 🔊 **Síntesis de voz** para respuestas del sistema
+- ⚙️ **Configuración dinámica** sin recompilar
+- 🖼️ **Carátulas de juegos** personalizables
+- 📱 **Diseño moderno** con iconos SVG
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🎬 Demo
 
-## Expanding the ESLint configuration
+![Voice Launcher Demo](https://via.placeholder.com/800x450/1a1a1a/00ff00?text=Voice+Launcher+Demo)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Instalación Rápida
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Requisitos
+- Raspberry Pi 3B+ o superior
+- Raspberry Pi OS (Bullseye o superior)
+- Micrófono USB o integrado
+- 2GB RAM mínimo
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Scripts Automáticos
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# 1. Descargar modelo de voz
+chmod +x download-vosk-model.sh
+./download-vosk-model.sh
+
+# 2. Compilar aplicación (~15-30 min)
+chmod +x install-raspberry.sh
+./install-raspberry.sh
+
+# 3. Instalar paquete
+chmod +x post-install.sh
+./post-install.sh
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Ver guía detallada: **[INSTALL-QUICK.md](INSTALL-QUICK.md)**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🎙️ Uso
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
+### Palabra de Activación
+Di **"Carrito"** para activar el sistema. El micrófono se pondrá rojo 🔴
+
+### Comandos Disponibles
+
+| Comando | Acción |
+|---------|--------|
+| `"Listar juegos"` | Muestra tu biblioteca de juegos |
+| `"Abrir [nombre]"` | Lanza un juego específico |
+| `"Qué hora es"` | Te dice la hora actual |
+| `"Apagar consola"` | Apaga el sistema |
+
+## ⚙️ Configuración
+
+### 📋 Comandos (`commands.json`)
+
+Define las palabras clave que el sistema reconocerá:
+
+```json
+{
+  "actions": [
+    {
+      "name": "launch",
+      "keywords": ["abrir", "jugar", "ejecutar", "pon", "lanza"],
+      "response": "Abriendo {target}...",
+      "emit": "game-launch"
     },
-  },
-])
+    {
+      "name": "time",
+      "keywords": ["qué hora es", "hora", "dime la hora"],
+      "response": "{time}",
+      "emit": "time-info"
+    }
+  ]
+}
 ```
+
+### 🎮 Biblioteca (`games.json`)
+
+Define tus juegos, rutas y carátulas:
+
+```json
+[
+  {
+    "id": "pokemon",
+    "name": "Pokemon Luna",
+    "keywords": ["pokemon", "luna"],
+    "cmd": "/usr/games/citra-qt /home/pi/roms/pokemon_moon.3ds",
+    "image": "/home/pi/.local/share/voice-launcher/images/pokemon.png"
+  }
+]
+```
+
+## 🏗️ Arquitectura
+
+```
+┌─────────────────────────────────────────────────┐
+│           Frontend (React + TypeScript)         │
+│  - Interfaz de usuario                          │
+│  - Visualización de biblioteca                  │
+│  - Historial de comandos con iconos SVG        │
+└─────────────────┬───────────────────────────────┘
+                  │ IPC Events
+┌─────────────────▼───────────────────────────────┐
+│              Backend (Rust + Tauri)             │
+│  - Gestión de comandos                          │
+│  - Lanzamiento de procesos                      │
+│  - Comunicación con motor de voz                │
+└─────────────────┬───────────────────────────────┘
+                  │ Stdin/Stdout
+┌─────────────────▼───────────────────────────────┐
+│          Motor de Voz (Python + Vosk)           │
+│  - Reconocimiento de voz offline                │
+│  - Síntesis de voz (pyttsx3)                    │
+│  - Detección de palabra de activación          │
+└─────────────────────────────────────────────────┘
+```
+
+## 🛠️ Tecnologías
+
+### Frontend
+- **React 19** - UI Library
+- **TypeScript** - Type Safety
+- **Vite** - Build Tool
+
+### Backend
+- **Rust** - Sistema backend
+- **Tauri 2** - Framework de aplicaciones
+- **Chrono** - Gestión de fechas/hora
+
+### Motor de Voz
+- **Python 3** - Scripting
+- **Vosk** - Reconocimiento de voz offline
+- **PyAudio** - Captura de audio
+- **pyttsx3** - Síntesis de voz
+
+## 📁 Estructura del Proyecto
+
+```
+voice-launcher/
+├── src/                        # Frontend React
+│   ├── components/
+│   │   └── Icons.tsx          # Iconos SVG
+│   ├── App.tsx                # Componente principal
+│   └── App.css                # Estilos
+├── src-tauri/                 # Backend Rust
+│   ├── src/
+│   │   └── main.rs           # Lógica principal
+│   └── tauri.conf.json       # Configuración Tauri
+├── src-python/                # Motor de voz Python
+│   ├── app.py                # Script principal
+│   ├── model/                # Modelo Vosk (descargar)
+│   └── requirements.txt      # Dependencias Python
+├── commands.json              # Configuración de comandos
+├── games.json                 # Biblioteca de juegos
+├── download-vosk-model.sh     # Descarga modelo de voz
+├── install-raspberry.sh       # Script de compilación
+└── post-install.sh            # Script de instalación
+```
+
+## 🐛 Solución de Problemas
+
+### El micrófono no funciona
+```bash
+# Listar dispositivos de audio
+arecord -l
+
+# Ajustar configuración
+alsamixer
+```
+
+### No reconoce mi voz
+- Habla claro y cerca del micrófono
+- Descarga un modelo Vosk más grande si es necesario
+- Verifica el nivel de volumen del micrófono
+
+### Error al compilar
+```bash
+# Verificar dependencias
+sudo apt install -y libwebkit2gtk-4.0-dev build-essential
+
+# Limpiar y recompilar
+cd src-tauri
+cargo clean
+cargo build
+```
+
+## 🤝 Contribuir
+
+¡Las contribuciones son bienvenidas! Si encuentras un bug o tienes una idea:
+
+1. Abre un **Issue** describiendo el problema o feature
+2. Haz un **Fork** del proyecto
+3. Crea una **rama** para tu feature (`git checkout -b feature/AmazingFeature`)
+4. **Commit** tus cambios (`git commit -m 'Add some AmazingFeature'`)
+5. **Push** a la rama (`git push origin feature/AmazingFeature`)
+6. Abre un **Pull Request**
+
+## 📝 Licencia
+
+Este proyecto es de código abierto y está disponible bajo la licencia MIT.
+
+## 🙏 Créditos
+
+- **[Vosk](https://alphacephei.com/vosk/)** - Motor de reconocimiento de voz
+- **[Tauri](https://tauri.app/)** - Framework de aplicaciones
+- **[React](https://react.dev/)** - Biblioteca UI
+
+## 📧 Contacto
+
+¿Preguntas? Abre un [Issue](https://github.com/EduardoAlejandroYbanezSemo/voice-launcher/issues)
+
+---
+
+**Hecho con ❤️ para la comunidad Raspberry Pi**
