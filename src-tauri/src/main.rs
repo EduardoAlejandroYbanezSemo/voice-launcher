@@ -262,6 +262,21 @@ fn process_dynamic_command(app: &tauri::AppHandle, text: &str, config: &AppConfi
                          response = response.replace("{target}", &game.name);
                          target_name = game.name.clone();
                          println!("🚀 EJECUTANDO: {}", game.cmd);
+                         
+                         // Lanzar el comando
+                         #[cfg(target_os = "windows")]
+                         {
+                             let _ = Command::new("cmd")
+                                 .args(["/C", &game.cmd])
+                                 .spawn();
+                         }
+                         
+                         #[cfg(not(target_os = "windows"))]
+                         {
+                             let _ = Command::new("sh")
+                                 .args(["-c", &game.cmd])
+                                 .spawn();
+                         }
                     } else {
                         let raw_target = text_lower.replace(keyword, "").trim().to_string();
                         response = format!("No encuentro el juego {} en tu biblioteca.", raw_target);
