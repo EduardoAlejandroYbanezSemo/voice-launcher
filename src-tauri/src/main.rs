@@ -15,9 +15,6 @@ use tauri_plugin_shell::process::CommandEvent;
 use tauri_plugin_shell::ShellExt;
 use chrono::{Local, Timelike};
 
-#[cfg(target_os = "windows")]
-use std::os::windows::process::CommandExt;
-
 #[derive(Debug, Deserialize, Serialize, Clone)]
 struct VoiceMessage {
     #[serde(rename = "type")]
@@ -102,6 +99,7 @@ fn main() {
 
                     #[cfg(target_os = "windows")]
                     let mut child = {
+                        use std::os::windows::process::CommandExt;
                         const CREATE_NO_WINDOW: u32 = 0x08000000;
                         Command::new(abs_script_path.to_str().unwrap())
                             .stdout(Stdio::piped())
@@ -174,13 +172,16 @@ fn main() {
 }
 
 fn load_commands() -> CommandsConfig {
+    // Construir ruta de usuario
+    let home_dir = std::env::var("HOME").unwrap_or_default();
+    let user_config = format!("{}/.config/voice-launcher/commands.json", home_dir);
+    
     // Buscar en múltiples ubicaciones
     let paths = vec![
         "commands.json",                                    // Directorio actual (dev)
         "../commands.json",                                 // Directorio padre (dev)
         "/etc/voice-launcher/commands.json",                // Sistema (producción)
-        &format!("{}/.config/voice-launcher/commands.json", 
-                 std::env::var("HOME").unwrap_or_default()), // Usuario (producción)
+        user_config.as_str(),                               // Usuario (producción)
     ];
     
     for path in paths {
@@ -197,13 +198,16 @@ fn load_commands() -> CommandsConfig {
 }
 
 fn load_games() -> Vec<Game> {
+    // Construir ruta de usuario
+    let home_dir = std::env::var("HOME").unwrap_or_default();
+    let user_config = format!("{}/.config/voice-launcher/games.json", home_dir);
+    
     // Buscar en múltiples ubicaciones
     let paths = vec![
         "games.json",                                    // Directorio actual (dev)
         "../games.json",                                 // Directorio padre (dev)
         "/etc/voice-launcher/games.json",                // Sistema (producción)
-        &format!("{}/.config/voice-launcher/games.json", 
-                 std::env::var("HOME").unwrap_or_default()), // Usuario (producción)
+        user_config.as_str(),                            // Usuario (producción)
     ];
     
     for path in paths {
