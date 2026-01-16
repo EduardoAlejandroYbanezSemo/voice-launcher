@@ -58,10 +58,18 @@ Di **"Carrito"** para activar el sistema. El micrófono se pondrá rojo 🔴
 
 | Comando | Acción |
 |---------|--------|
-| `"Listar juegos"` | Muestra tu biblioteca de juegos |
-| `"Abrir [nombre]"` | Lanza un juego específico |
+| `"Listar juegos"` | Muestra tu biblioteca de aplicaciones |
+| `"Abrir [nombre]"` | Lanza una aplicación o juego |
 | `"Qué hora es"` | Te dice la hora actual |
 | `"Apagar consola"` | Apaga el sistema |
+
+### Ejemplos de Uso
+
+- **"Carrito... Abrir Chrome"** - Abre el navegador
+- **"Carrito... Abrir terminal"** - Abre la terminal
+- **"Carrito... Abrir calculadora"** - Abre la calculadora
+- **"Carrito... Listar juegos"** - Muestra todas las apps disponibles
+- **"Carrito... Qué hora es"** - Te dice la hora
 
 ## ⚙️ Configuración
 
@@ -90,10 +98,24 @@ Define las palabras clave que el sistema reconocerá:
 
 ### 🎮 Biblioteca (`games.json`)
 
-Define tus juegos, rutas y carátulas:
+Define tus aplicaciones, juegos, rutas y carátulas:
 
 ```json
 [
+  {
+    "id": "chrome",
+    "name": "Google Chrome",
+    "keywords": ["chrome", "navegador", "internet"],
+    "cmd": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "image": ""
+  },
+  {
+    "id": "terminal",
+    "name": "Terminal",
+    "keywords": ["terminal", "consola", "powershell"],
+    "cmd": "wt.exe",
+    "image": ""
+  },
   {
     "id": "pokemon",
     "name": "Pokemon Luna",
@@ -103,6 +125,8 @@ Define tus juegos, rutas y carátulas:
   }
 ]
 ```
+
+**Nota:** Puedes agregar cualquier aplicación, no solo juegos. El archivo se llama `games.json` por tradición, pero acepta cualquier ejecutable.
 
 ## 🏗️ Arquitectura
 

@@ -37,10 +37,15 @@ voice-launcher
 1. **Palabra de activación:** Di **"Carrito"**
 2. El micrófono se pondrá rojo 🔴
 3. **Comandos disponibles:**
-   - *"Listar juegos"* - Muestra tu biblioteca
-   - *"Abrir [nombre del juego]"* - Lanza un juego
+   - *"Listar juegos"* - Muestra tu biblioteca de aplicaciones
+   - *"Abrir [nombre]"* - Lanza una app o juego
    - *"Qué hora es"* - Te dice la hora actual
    - *"Apagar consola"* - Apaga el sistema
+
+**Ejemplos:**
+- "Carrito... Abrir terminal"
+- "Carrito... Abrir Chrome"
+- "Carrito... Listar juegos"
 
 ---
 
@@ -66,6 +71,13 @@ Edita los archivos JSON para personalizar:
 ```json
 [
   {
+    "id": "chrome",
+    "name": "Google Chrome",
+    "keywords": ["chrome", "navegador", "internet"],
+    "cmd": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "image": ""
+  },
+  {
     "id": "pokemon",
     "name": "Pokemon Esmeralda",
     "keywords": ["pokemon", "esmeralda"],
@@ -74,6 +86,8 @@ Edita los archivos JSON para personalizar:
   }
 ]
 ```
+
+**Puedes agregar cualquier aplicación:** juegos, navegadores, editores, etc.
 
 **Ubicación de archivos:**
 - Configuración: `~/.config/voice-launcher/commands.json` y `~/.config/voice-launcher/games.json`
